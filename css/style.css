@@ -1,0 +1,97 @@
+.board {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+}
+
+.playerarea {
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+  background-color: rgba(159, 246, 81, 0.37);
+}
+
+.top {
+  font-family: 'Space Mono', monospace;
+}
+
+.square {
+  width: 11rem;
+  height: 11rem;
+  margin: 0.8rem;
+}
+
+.rect {
+  width: 11rem;
+  height: 5rem;
+  margin: 0.8rem;
+}
+
+.lg-rect {
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+  margin: 0.8rem;
+}
+
+.sm-sq {
+  width: 6rem;
+  height: 6rem;
+  margin: 0.8rem;
+}
+
+.card {
+  border: 1px solid grey;
+  background-color: rgba(232, 190, 164, 0.4);
+}
+
+.bank {
+  background-color: rgb(3, 78, 2);
+}
+
+.security {
+  border: 1px solid grey;
+  background-color: rgba(209, 159, 132, .4);
+}
+
+.crew {
+  border: 1px solid grey;
+  background-color: rgba(116, 63, 101, .4);
+}
+
+.playerarea {
+  background-color: rgba(159, 246, 81, 0.37);
+}
+
+.draw {
+  border: 1px solid grey;
+  background-color: rgba(177, 169, 181, 0.57);
+}
+
+.deck {
+  background-color: rgba(57, 202, 224, 0.4);
+}
+
+.discard {
+  border: 1px solid grey;
+  background-color: rgba(68, 119, 113, 0.67);
+}
+
+.scorebox {
+  background-color: rgba(124, 133, 114, .3);
+}
+
+.hand {
+  border: 1px solid grey;
+  background-color: rgba(87, 95, 145, 0.43);
+}
+
+.credits {
+  background-color: rgb(250, 254, 72);
+}
+
+.clicks {
+  background-color: rgb(84, 228, 237);
+}
