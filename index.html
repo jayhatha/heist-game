@@ -6,6 +6,9 @@
   <title>heist</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="js/script.js"></script>
 </head>
 
 <body>
@@ -13,43 +16,94 @@
     <div class="top">
       <h1>Heist</h1>
     </div>
-
+<div class="corpside">
+<div class="server">
     <div class="bank square">
     </div>
 
-    <div class="security rect" id="sec1">
+    <div class="secslot rect" id="sec1">
     </div>
-    <div class="security rect" id="sec2">
+    <div class="secslot rect" id="sec2">
     </div>
-    <div class="security rect" id="sec3">
+    <div class="secslot rect" id="sec3">
+    </div>
+    <div class ="run-arrow">
+      <img src="img/arrow.png" alt="arrow">
+    </div>
+</div>
+<div class="server">
+    <div class="bank square">
     </div>
 
-    <div class="scorebox lg-rect">
-      <div class="crew sm-sq" id="lockpick">
+    <div class="secslot rect" id="sec1">
+    </div>
+    <div class="secslot rect" id="sec2">
+    </div>
+    <div class="secslot rect" id="sec3">
+    </div>
+    <div class ="run-arrow">
+      <img src="img/arrow.png" alt="arrow">
+    </div>
+</div>
+<div class="server">
+    <div class="bank square">
+    </div>
+
+    <div class="secslot rect" id="sec1">
+    </div>
+    <div class="secslot rect" id="sec2">
+    </div>
+    <div class="secslot rect" id="sec3">
+    </div>
+    <div class ="run-arrow">
+      <img src="img/arrow.png" alt="arrow">
+    </div>
+</div>
+<div class="server">
+    <div class="bank square">
+    </div>
+
+    <div class="secslot rect" id="sec1">
+    </div>
+    <div class="secslot rect" id="sec2">
+    </div>
+    <div class="secslot rect" id="sec3">
+    </div>
+    <div class ="run-arrow">
+      <img src="img/arrow.png" alt="arrow">
+    </div>
+</div>
+</div>
+    <div class="scorebox">
+      <div class="crewbox lg-rect">
+        <div class="crew sm-sq" id="crew1">
+        </div>
+        <div class="crew sm-sq" id="crew2">
+        </div>
+        <div class="crew sm-sq" id="crew3">
+        </div>
+        <div class="crew sm-sq" id="crew4">
+        </div>
       </div>
-      <div class="crew sm-sq" id="hacker">
-      </div>
-      <div class="crew sm-sq" id="tnt">
-      </div>
-      <div class="crew sm-sq" id="muscle">
-      </div>
-      <div class="credits sm-sq">
-      </div>
-      <div class="clicks sm-sq">
+      <div class="counters lg-rect">
+        <div class="credits sm-sq">
+        </div>
+        <div class="clicks sm-sq">
+        </div>
       </div>
     </div>
 
     <div class="playerarea">
       <div class="hand lg-rect">
-        <div class="card sm-sq">
+        <div class="cardslot sm-sq" id="hand1">
         </div>
-        <div class="card sm-sq">
+        <div class="cardslot hand2 sm-sq" id="hand2">
         </div>
-        <div class="card sm-sq">
+        <div class="cardslot hand3 sm-sq" id="hand3">
         </div>
-        <div class="card sm-sq">
+        <div class="cardslot hand4 sm-sq" id="hand4">
         </div>
-        <div class="card sm-sq">
+        <div class="cardslot hand5 sm-sq" id="hand5">
         </div>
       </div>
       <div class="deck lg-rect">

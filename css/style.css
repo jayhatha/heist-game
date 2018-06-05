@@ -6,13 +6,6 @@
   justify-content: stretch;
 }
 
-.playerarea {
-  display: flex;
-  flex-direction: row;
-  align-items: space-around;
-  background-color: rgba(159, 246, 81, 0.37);
-}
-
 .top {
   font-family: 'Space Mono', monospace;
 }
@@ -42,36 +35,38 @@
   margin: 0.8rem;
 }
 
-.card {
+.playerarea {
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+  margin-top: 1rem;
+  background-color: rgba(159, 246, 81, 0.37);
+}
+
+.hand {
+  border: 1px solid grey;
+  background-color: rgba(87, 95, 145, 0.43);
+}
+
+.cardslot {
   border: 1px solid grey;
   background-color: rgba(232, 190, 164, 0.4);
 }
 
-.bank {
-  background-color: rgb(3, 78, 2);
+.card {
+  position: relative;
+  top: -0.8rem;
+  left: -0.8rem;
+  background-color: rgba(232, 190, 164, 0.9);
 }
 
-.security {
-  border: 1px solid grey;
-  background-color: rgba(209, 159, 132, .4);
-}
-
-.crew {
-  border: 1px solid grey;
-  background-color: rgba(116, 63, 101, .4);
-}
-
-.playerarea {
-  background-color: rgba(159, 246, 81, 0.37);
+.deck {
+  background-color: rgba(57, 202, 224, 0.4);
 }
 
 .draw {
   border: 1px solid grey;
   background-color: rgba(177, 169, 181, 0.57);
-}
-
-.deck {
-  background-color: rgba(57, 202, 224, 0.4);
 }
 
 .discard {
@@ -80,18 +75,80 @@
 }
 
 .scorebox {
-  background-color: rgba(124, 133, 114, .3);
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(124, 133, 114, 0.3);
+  margin-top: 1rem;
 }
 
-.hand {
+.crew {
   border: 1px solid grey;
-  background-color: rgba(87, 95, 145, 0.43);
+  background-color: rgba(116, 63, 101, 0.4);
 }
 
 .credits {
   background-color: rgb(250, 254, 72);
 }
 
+.clicks,
+.credits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clicks h1,
+.credits h1 {
+  font-family: Helvetica, sans-serif;
+  font-size: 1.5em;
+}
+
 .clicks {
   background-color: rgb(84, 228, 237);
+}
+
+.corpside {
+  display: flex;
+}
+
+.server {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem;
+}
+
+.bank {
+  background-color: rgb(3, 78, 2);
+}
+
+.secslot {
+  background-color: rgba(209, 159, 132, 0.2);
+}
+
+.security {
+  position: relative;
+  top: -0.8rem;
+  left: -0.8rem;
+  background-color: rgba(33, 17, 166, 0.9);
+}
+/* SPECIAL FX */
+.glow {
+  box-shadow: 0 0 15px 5px rgba(255, 255, 190, 0.75);
+}
+
+.focused {
+  box-shadow: 0 0 15px 5px rgba(58, 244, 19, 0.83);
+}
+
+.run-arrow {
+  position: relative;
+  top: 0;
+  opacity: 0;
+  text-align: center;
+  animation: fadein 0.5s;
+  z-index: 100;
+}
+
+.run-arrow:hover {
+  opacity: 0.5;
 }

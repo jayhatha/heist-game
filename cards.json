@@ -1,0 +1,18 @@
+{
+    "cardnum": "0",
+    "name": "Danny",
+    "img": "img/01.jpg",
+    "color": "red",
+    "cost": "2",
+    "str": "2",
+    "break": "2"
+},
+{
+    "cardnum": "1",
+    "name": "Rusty",
+    "img": "img/02.jpg",
+    "color": "green",
+    "cost": "1",
+    "str": "1",
+    "break": "1"
+}
