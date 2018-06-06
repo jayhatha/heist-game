@@ -12,6 +12,8 @@ const gameState = [
         firstOpen: null,
         firstSecOpen: null,
         currentOpponent: null,
+        playerScore: null,
+        corpScore: null,
         hand1: null,
         hand2: null,
         hand3: null,
@@ -64,7 +66,60 @@ const securityMeasures = [
         cost: 1,
         strength: 1,
         subs: 1
+    },
+    {
+        cardnum: 'sec0',
+        name: 'Electrified Fence',
+        img: 'img/sec01.jpg',
+        color: 'green',
+        cost: 2,
+        strength: 2,
+        subs: 2
+    },
+    {
+        cardnum: 'sec1',
+        name: 'Rent-a-Cop',
+        img: 'img/sec02.jpg',
+        color: 'red',
+        cost: 1,
+        strength: 1,
+        subs: 1
+    }, {
+        cardnum: 'sec0',
+        name: 'Electrified Fence',
+        img: 'img/sec01.jpg',
+        color: 'green',
+        cost: 2,
+        strength: 2,
+        subs: 2
+    },
+    {
+        cardnum: 'sec1',
+        name: 'Rent-a-Cop',
+        img: 'img/sec02.jpg',
+        color: 'red',
+        cost: 1,
+        strength: 1,
+        subs: 1
+    }, {
+        cardnum: 'sec0',
+        name: 'Electrified Fence',
+        img: 'img/sec01.jpg',
+        color: 'green',
+        cost: 2,
+        strength: 2,
+        subs: 2
+    },
+    {
+        cardnum: 'sec1',
+        name: 'Rent-a-Cop',
+        img: 'img/sec02.jpg',
+        color: 'red',
+        cost: 1,
+        strength: 1,
+        subs: 1
     }
+
 ];
 
 const securityPool = []; // the corp's deck, basically
@@ -108,12 +163,19 @@ function initGame() {
     initSec();
     shuffleDeck(cardsInDeck);
     shuffleDeck(securityPool);
-    placeSec(2);
-    gameState.playerCash = 100;
+    placeSec(5);
+    gameState.playerCash = 5;
+    gameState.playerScore = 0;
+    gameState.corpScore = 0;
+    $('#corpscore').click(addTruck);
+    $('#playerscore').append(`<h1>${gameState.playerScore}</h1>`);
+    $('#corpscore').append(`<h1>${gameState.corpScore}</h1>`);
+    $('.bank').data('trucks', 0);
     $('.credits').append(`<h1>${gameState.playerCash}</h1>`);
     gameState.playerClicks = 4;
     $('.clicks').append(`<h1>${gameState.playerClicks}</h1>`);
     $('.deck').click(clickToDraw);
+    $('.credits').click(clickForCredit);
     $('.run-arrow').click(approach);
 }
 
@@ -131,6 +193,9 @@ function charge(cost) {
 function spendClick(cost = 1) {
     gameState.playerClicks = gameState.playerClicks - cost;
     $('.clicks h1').text(gameState.playerClicks);
+    if (gameState.playerClicks === 0) {
+        corpTurn();
+    }
 }
 
 /** basic card drawing function
@@ -179,17 +244,27 @@ function clickToDraw() {
     }
 }
 
+/** function for the player action of spending a click to draw a card */
+function clickForCredit() {
+    if (gameState.playerClicks && !gameState.running) {
+        spendClick();
+        charge(-1);
+    }
+}
+
 /** function for the corp to place security measures, need to make this loop x times
 * @param {string} ice is the number of cards to place
 */
-function placeSec(ice) {
+function placeSec(ice = 1) {
     for (let i = 0; i < ice; i++) {
     // choose a random bank
-        const rando = Math.floor(Math.random() * (4 - 0)) + 0;
+        const banksLeft = $('.bank').length;
+        const rando = Math.floor(Math.random() * (banksLeft - 0)) + 0;
         // check for first open slot
         $('.server').eq(rando).children('.secslot').each(function() {
             if (!$.trim($(this).html())) {
                 gameState.firstSecOpen = `#${this.id}`;
+                console.log(gameState.firstSecOpen);
                 return false;
             }
         });
@@ -201,29 +276,32 @@ function placeSec(ice) {
     }
 }
 
-/** start run! */
+/** start run!
+* @param {string} e is just the click event so we can locate the server we're running on
+* @returns {boolean} false is just cheating to get out of the loop
+*/
 function approach(e) {
-    if (gameState.playerClicks > 0) {
-        spendClick(1);
-        if (!gameState.running) {
-            gameState.currentServer = $(e.currentTarget).parents('.server');
-            $('.run-arrow').css('display', 'none');
-            if ($(gameState.currentServer).children().children('.security').length > 0) {
-                runDepth = $(gameState.currentServer).children().children('.security').length;
-            } else {
-                console.log($(gameState.currentServer).children().children('.security').length);
-                robBank();
-                return false;
-            }
+    if (!gameState.running) {
+        if (gameState.playerClicks > 0) {
+            gameState.playerClicks--;
+            $('.clicks h1').text(gameState.playerClicks);
         }
-        runDepth--;
-        gameState.running = true;
-        currentOpponent = $(gameState.currentServer).children('.secslot').children('.security').eq(runDepth);
-        currentOpponent.children('img').attr('src', currentOpponent.data().img);
-        $('.marker').css('display', 'block');
-        $('.marker').fadeTo(400, 0.5).appendTo(currentOpponent);
-        checkBreakers();
+        gameState.currentServer = $(e.currentTarget).parents('.server');
+        $('.run-arrow').css('display', 'none');
+        if ($(gameState.currentServer).children().children('.security').length > 0) {
+            runDepth = $(gameState.currentServer).children().children('.security').length;
+        } else {
+            robBank();
+            return false;
+        }
     }
+    runDepth--;
+    gameState.running = true;
+    currentOpponent = $(gameState.currentServer).children('.secslot').children('.security').eq(runDepth);
+    currentOpponent.children('img').attr('src', currentOpponent.data().img);
+    $('.marker').css('display', 'block');
+    $('.marker').fadeTo(400, 0.5).appendTo(currentOpponent);
+    checkBreakers();
 }
 
 /** checks our player cards to see if any of them can break the ice */
@@ -235,12 +313,11 @@ function checkBreakers() {
             console.log($(this).data().color);
             $(this).addClass('focused');
             $(this).click(iceBreak);
-            console.log('in second function our breaker is', $(this));
-            console.log('in second function our opponent is', currentOpponent);
         }
     });
     if ($('.focused').length === 0) {
         console.log('You cant break thru there.');
+        // what happens when the runner can't break
         endTheRun();
     }
 }
@@ -259,18 +336,19 @@ function iceBreak() {
             }
         } else {
             console.log('not enough cash to break');
+            endTheRun();
         }
     }
 }
 
 /** ends the run, drops the runner back out */
 function endTheRun() {
-    $('.card').off();
     $('.card').removeClass('focused');
     $('.marker').css('display', 'none');
     $('.marker').appendTo($('body'));
     $('.run-arrow').css('display', 'block');
     gameState.running = false;
+    spendClick(0);
 }
 
 // we need a flee/getaway/jack out function here
@@ -278,11 +356,85 @@ function endTheRun() {
 /** the scoring function */
 function robBank() {
     console.log('in the baaaank');
+    $(gameState.currentServer).children('.run-arrow').remove();
+    $(gameState.currentServer).children('.bank').removeClass('bank');
+    $(gameState.currentServer).children().children().remove();
+    $(gameState.currentServer).css('filter', 'grayscale(100%) blur(0.5em)');
+    $(gameState.currentServer).removeClass('server');
     gameState.running = false;
     // replace these next two with some exciting animation for robbing the bank
     $('.marker').css('display', 'block');
     $('.marker').fadeTo(400, 0.5).appendTo($(gameState.currentServer).children('.bank'));
-    endTheRun();
+    gameState.playerScore++;
+    $('#playerscore h1').text(gameState.playerScore);
+    if (gameState.playerScore > 2) {
+        checkForWin();
+    } else {
+        endTheRun();
+    }
+    // check for a win here
+}
+
+/** the powers that be are moving! */
+function corpTurn() {
+    console.log('the powers that be are moving');
+    for (let i = 0; i < 3; i++) {
+        const rando = Math.floor(Math.random() * (6 - 1)) + 0;
+        if (rando === 0) {
+            placeSec();
+            console.log('new security measures in place');
+        } else {
+            console.log('trucks have arrived to secure the loot');
+            addTruck();
+        }
+    }
+    if (gameState.gameOver === false) {
+        playerTurn();
+    }
+}
+
+/** adding a truck to the bank, if 3 trucks, corp can score */
+function addTruck() {
+    const banksLeft = $('.bank').length;
+    const rando = Math.floor(Math.random() * (banksLeft - 0)) + 0;
+    const targetBank = $('.bank').eq(rando);
+    // check for first open slot
+    targetBank.data().trucks++;
+    for (let i = 0; i < targetBank.data().trucks; i++) {
+        targetBank.children(`.truck:eq(${i})`).css('display', 'inline-block');
+    }
+    if (targetBank.data().trucks >= 3) {
+        gameState.corpScore++;
+        $('#corpscore h1').text(gameState.corpScore);
+        targetBank.removeClass('bank');
+        gameState.currentServer = targetBank.parent();
+        console.log(gameState.currentServer);
+        $(gameState.currentServer).children('.run-arrow').remove();
+        $(gameState.currentServer).css('filter', 'sepia(100%) blur(0.5em)');
+        $(gameState.currentServer).removeClass('server');
+        $(gameState.currentServer).children().children().remove();
+    }
+    checkForWin();
+}
+
+/** starting the player's turn */
+function playerTurn() {
+    // display the 'your turn' animation
+    console.log('player turn!');
+    gameState.playerClicks = 4;
+    $('.clicks h1').text(gameState.playerClicks);
+}
+
+/** checks scores to see if either player has won */
+function checkForWin() {
+    if (gameState.corpScore > 2 || gameState.playerScore > 2) {
+        if (gameState.corpScore > 2) {
+            console.log('heist failed! the powers that be have won!');
+        } else if (gameState.playerScore > 2) {
+            console.log('you pulled it off! now youre set for life.');
+        }
+        gameState.gameOver = true;
+    }
 }
 
 $(document).ready(() => {
@@ -318,18 +470,29 @@ $(document).ready(() => {
         }
     });
     // turning parts of board into drop targets
-    $('.crew, .cardslot, .security').droppable({
+    $('.crew, .cardslot').droppable({
 
         drop: function(event, ui) {
             if (!$.trim($(this).html())) {
                 if ($(this).hasClass('crew')) {
                     const cost = $(ui.draggable).data().cost;
                     if (gameState.playerCash >= cost) {
-                        charge(cost);
-                        $(this)
-                            .addClass('ui-droppable-active');
-                        $(ui.draggable).detach().css({ top: -13.57, left: -12.5 }).appendTo(this);
-                        $(ui.draggable).draggable('disable');
+                        if (gameState.playerClicks) {
+                            charge(cost);
+                            spendClick();
+                            $(this)
+                                .addClass('ui-droppable-active');
+                            $(ui.draggable).detach().css({ top: -13.57, left: -12.5 }).appendTo(this);
+                            $(ui.draggable).draggable('disable');
+                        } else {
+                            $('.clicks').effect('shake', 'slow');
+                            $(ui.draggable)
+                                .delay(800)
+                                .queue(function(next) {
+                                    $(this).css({ top: -13.57, left: -12.5 });
+                                    next();
+                                });
+                        }
                     } else {
                         $('.credits').effect('shake', 'slow');
                         $(ui.draggable)

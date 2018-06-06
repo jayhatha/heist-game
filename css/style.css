@@ -1,3 +1,8 @@
+h1 {
+  font-family: Rubik, sans-serif;
+  font-size: 1.5em;
+}
+
 .board {
   display: flex;
   flex: 1;
@@ -12,6 +17,7 @@
 }
 
 .square {
+  background-color: rgba(3, 78, 2, 0.5);
   width: 11rem;
   height: 11rem;
   margin: 0.8rem;
@@ -75,7 +81,7 @@
   background-color: rgba(68, 119, 113, 0.67);
 }
 
-.scorebox {
+.playerbox {
   display: flex;
   flex-direction: row;
   background-color: rgba(124, 133, 114, 0.3);
@@ -91,6 +97,8 @@
   background-color: rgb(250, 254, 72);
 }
 
+#corpscore,
+#playerscore,
 .clicks,
 .credits {
   display: flex;
@@ -98,14 +106,16 @@
   justify-content: center;
 }
 
-.clicks h1,
-.credits h1 {
-  font-family: Rubik, sans-serif;
-  font-size: 1.5em;
-}
-
 .clicks {
   background-color: rgb(84, 228, 237);
+}
+
+#playerscore {
+  background-color: rgba(126, 148, 238, 0.67);
+}
+
+#corpscore {
+  background-color: rgba(218, 12, 5, 0.7);
 }
 
 .corpside {
@@ -119,7 +129,18 @@
 }
 
 .bank {
-  background-color: rgb(3, 78, 2);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.truck {
+  background-image: url("../img/truck.png");
+  background-position: center;
+  background-size: contain;
+  width: 3rem;
+  height: 3rem;
+  margin: 0.2rem;
+  display: none;
 }
 
 .secslot {
@@ -211,7 +232,7 @@ button {
   background: #333;
   background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
   background: -moz-linear-gradient(top, #666, #000);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#666666', endColorstr='#000000')))))))))))))))))));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#666666', endColorstr='#000000'))))))))))))))))))))))))))))))
 }
 
 button:hover {
@@ -219,7 +240,7 @@ button:hover {
   background: #000;
   background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
   background: -moz-linear-gradient(top, #444, #000);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#444444', endColorstr='#000000')))))))))))))))))));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#444444', endColorstr='#000000'))))))))))))))))))))))))))))))
 }
 
 button:active {
@@ -228,7 +249,7 @@ button:active {
   color: #666;
   background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#444));
   background: -moz-linear-gradient(top, #000, #444);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#000000', endColorstr='#666666')))))))))))))))))))
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#000000', endColorstr='#666666')))))))))))))))))))))))))))));
 }
 
 .ui-dialog-buttonset {
