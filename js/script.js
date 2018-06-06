@@ -7,7 +7,7 @@ const gameState = [
         playerClicks: null,
         corpCash: 5,
         corpClicks: 3,
-        currentBreaker: null,
+        currentServer: null,
         cardsInHand: null,
         firstOpen: null,
         firstSecOpen: null,
@@ -41,7 +41,7 @@ const cards = [
         img: 'img/02.jpg',
         color: 'green',
         cost: 1,
-        strength: 2,
+        strength: 1,
         break: 1
     }
 ];
@@ -80,7 +80,7 @@ function initDeck() {
 /** fetches all security measures and puts them in the corp's pool */
 function initSec() {
     for (let i = 0; i < securityMeasures.length; i++) { // replace this with JSON object eventually
-        securityPool.push(securityMeasures[i]); // make this random eventually
+        securityPool.push(securityMeasures[i]);
     }
 }
 
@@ -179,19 +179,22 @@ function clickToDraw() {
     }
 }
 
-/** function for the corp to place security measures, need to make this loop x times*/
+/** function for the corp to place security measures, need to make this loop x times
+* @param {string} ice is the number of cards to place
+*/
 function placeSec(ice) {
     for (let i = 0; i < ice; i++) {
     // choose a random bank
-    // check for first open slot
-        $('.secslot').each(function() {
+        const rando = Math.floor(Math.random() * (4 - 0)) + 0;
+        // check for first open slot
+        $('.server').eq(rando).children('.secslot').each(function() {
             if (!$.trim($(this).html())) {
                 gameState.firstSecOpen = `#${this.id}`;
                 return false;
             }
         });
         // place next available security there
-        $(gameState.firstSecOpen).append(`<div class='security rect ${securityPool[0].cardnum}'><img src='${securityPool[0].img}'</div>`);
+        $(gameState.firstSecOpen).append(`<div class='security rect ${securityPool[0].cardnum}'><img src='img/cardback.jpg'</div>`);
         $(`.${securityPool[0].cardnum}`).data(securityPool[0]);
         const testSec = $(`.${securityPool[0].cardnum}`).data();
         securityPool.shift();
@@ -199,49 +202,110 @@ function placeSec(ice) {
 }
 
 /** start run! */
-function approach() {
-    if (!gameState.running) {
-        runDepth = $('.security').length - 1;
-        console.log(`run depth is ${runDepth}`);
+function approach(e) {
+    if (gameState.playerClicks > 0) {
+        spendClick(1);
+        if (!gameState.running) {
+            gameState.currentServer = $(e.currentTarget).parents('.server');
+            $('.run-arrow').css('display', 'none');
+            if ($(gameState.currentServer).children().children('.security').length > 0) {
+                runDepth = $(gameState.currentServer).children().children('.security').length;
+            } else {
+                console.log($(gameState.currentServer).children().children('.security').length);
+                robBank();
+                return false;
+            }
+        }
+        runDepth--;
+        gameState.running = true;
+        currentOpponent = $(gameState.currentServer).children('.secslot').children('.security').eq(runDepth);
+        currentOpponent.children('img').attr('src', currentOpponent.data().img);
+        $('.marker').css('display', 'block');
+        $('.marker').fadeTo(400, 0.5).appendTo(currentOpponent);
+        checkBreakers();
     }
-    // update for multiple banks
-    gameState.running = true;
-    currentOpponent = $(this).siblings('.secslot').children('.security').eq(runDepth);
-    console.log(currentOpponent);
-    $(this).fadeTo(400, 0.5).appendTo(currentOpponent);
+}
+
+/** checks our player cards to see if any of them can break the ice */
+function checkBreakers() {
+    $('.card').off();
+    $('.card').removeClass('focused');
     $('.crew > .card').each(function() {
-        console.log($(this));
-        if ($(this).data().color === currentOpponent.data().color) {
+        if ($(this).data().strength >= currentOpponent.data().strength && $(this).data().color === currentOpponent.data().color) {
             console.log($(this).data().color);
             $(this).addClass('focused');
             $(this).click(iceBreak);
+            console.log('in second function our breaker is', $(this));
+            console.log('in second function our opponent is', currentOpponent);
         }
     });
-
-    /** here, we're defeating a security measure using one of our crew members */
-    function iceBreak() {
-        console.log(`${$(this).data().strength} vs ${currentOpponent.data().strength}`);
-        if ($(this).data().strength >= currentOpponent.data().strength && $(this).data().color === currentOpponent.data().color) {
-            if (gameState.playerCash >= ($(this).data().break)) {
-                charge($(this).data().break);
-                console.log('you broke it!');
-                runDepth--;
-                if (runDepth >= 0) {
-                    approach();
-                } else if (runDepth < 0) {
-                    console.log('in the baaaank');
-                }
-            }
-        }
+    if ($('.focused').length === 0) {
+        console.log('You cant break thru there.');
+        endTheRun();
     }
-    // we need a flee/getaway/jack out function here
 }
 
-/** compares crew strength to security strength, pays cost to break thru*/
+/** here, we're defeating a security measure using one of our crew members */
+function iceBreak() {
+    console.log(`${$(this).data().strength} vs ${currentOpponent.data().strength}`);
+    if ($(this).data().strength >= currentOpponent.data().strength && $(this).data().color === currentOpponent.data().color) {
+        if (gameState.playerCash >= ($(this).data().break)) {
+            charge($(this).data().break);
+            console.log('you broke it!');
+            if (runDepth >= 1) {
+                approach();
+            } else if (runDepth < 1) {
+                robBank();
+            }
+        } else {
+            console.log('not enough cash to break');
+        }
+    }
+}
 
-// approach function
+/** ends the run, drops the runner back out */
+function endTheRun() {
+    $('.card').off();
+    $('.card').removeClass('focused');
+    $('.marker').css('display', 'none');
+    $('.marker').appendTo($('body'));
+    $('.run-arrow').css('display', 'block');
+    gameState.running = false;
+}
+
+// we need a flee/getaway/jack out function here
+
+/** the scoring function */
+function robBank() {
+    console.log('in the baaaank');
+    gameState.running = false;
+    // replace these next two with some exciting animation for robbing the bank
+    $('.marker').css('display', 'block');
+    $('.marker').fadeTo(400, 0.5).appendTo($(gameState.currentServer).children('.bank'));
+    endTheRun();
+}
 
 $(document).ready(() => {
+    // popping up intro dialog
+    $('.popup').dialog({
+        dialogClass: 'no-close',
+        open: function() {
+            $('.popup').css('display', 'flex');
+        },
+        close: function() {
+            $('.popup').css('display', 'none');
+            $('.board').css('filter', 'none');
+        },
+        buttons: [
+            {
+                text: 'Let\'s rob!',
+                click: function() {
+                    $(this).dialog('close');
+                }
+            }
+        ]
+    });
+
     // making cards draggable
     $('.card').draggable({
         start: function(event, ui) {
@@ -266,15 +330,6 @@ $(document).ready(() => {
                             .addClass('ui-droppable-active');
                         $(ui.draggable).detach().css({ top: -13.57, left: -12.5 }).appendTo(this);
                         $(ui.draggable).draggable('disable');
-                        $('.crewbox').bind('mousedown', (e) => {
-                            e.metaKey = true;
-                        })
-                            .selectable({
-                                filter: '.card',
-                                classes: {
-                                    'ui-selected': 'focused'
-                                }
-                            });
                     } else {
                         $('.credits').effect('shake', 'slow');
                         $(ui.draggable)
