@@ -342,11 +342,13 @@ function drawCards(draws) {
 
 /** the player spends an action to draw a card */
 function clickToDraw() {
-    gameLog('You drew a card.');
     gameState.cardsInHand = $('.cardslot > div').length;
     if (gameState.cardsInHand < 5 && gameState.playerClicks && cardsInDeck.length > 0 && !gameState.running) {
         spendClick();
         drawCards(1);
+        gameLog('You drew a card.');
+    } else {
+        $('.draw').effect('shake', 'slow');
     }
 }
 
@@ -493,13 +495,13 @@ function endTheRun() {
 /** increase player's score when they rob a bank */
 function robBank() {
     gameLog('Success! You made it into the bank!');
-    $(gameState.currentServer).children('.run-arrow').remove();
+    $(gameState.currentServer).children('.run-arrow').removeClass('run-arrow');
     $(gameState.currentServer).children('.bank').removeClass('bank');
     $(gameState.currentServer).children().children().remove();
     $(gameState.currentServer).css('filter', 'grayscale(100%) blur(0.5em)');
     $(gameState.currentServer).removeClass('server');
     gameState.running = false;
-    // replace these next two with some exciting animation for robbing the bank
+    // add to these next two with some exciting animation for robbing the bank
     gameState.playerScore++;
     $('#playerscore h1').text(gameState.playerScore);
     endTheRun();
@@ -542,12 +544,14 @@ function addTruck() {
         gameLog('Trucks start to pull away with the loot. It\'s too late to rob this bank.');
         gameState.corpScore++;
         $('#corpscore h1').text(gameState.corpScore);
-        targetBank.removeClass('bank');
         gameState.currentServer = targetBank.parent();
-        $(gameState.currentServer).children('.run-arrow').remove();
+        targetBank.removeClass('bank');
+        $(gameState.currentServer).children('.run-arrow').css('display', 'none');
+        $(gameState.currentServer).children('.run-arrow').removeClass('run-arrow');
+        $(gameState.currentServer).children().children().remove();
         $(gameState.currentServer).css('filter', 'sepia(100%) blur(0.5em)');
         $(gameState.currentServer).removeClass('server');
-        $(gameState.currentServer).children().children().remove();
+
         checkForWin();
     }
 }
@@ -572,6 +576,7 @@ function checkForWin() {
         }
         gameState.gameOver = true;
         $('.marker').css('display', 'none');
+        gameState.running = true;
     }
 }
 
@@ -633,7 +638,7 @@ $(document).ready(() => {
                             spendClick();
                             $(this)
                                 .addClass('ui-droppable-active');
-                            $(ui.draggable).detach().css('top', '-0.40vw').css('left', '-0.10vw')
+                            $(ui.draggable).detach().css('top', '-1vw').css('left', '-1vw')
                                 .appendTo(this);
                             $(ui.draggable).draggable('disable');
                         } else {
@@ -641,7 +646,7 @@ $(document).ready(() => {
                             $(ui.draggable)
                                 .delay(800)
                                 .queue(function(next) {
-                                    $(this).css('top', '-0.40vw').css('left', '-0.10vw');
+                                    $(this).css('top', '-1vw').css('left', '-1vw');
                                     next();
                                 });
                         }
@@ -651,14 +656,14 @@ $(document).ready(() => {
                         $(ui.draggable)
                             .delay(800)
                             .queue(function(next) {
-                                $(this).css('top', '-0.40vw').css('left', '-0.10vw');
+                                $(this).css('top', '-1vw').css('left', '-1vw');
                                 next();
                             });
                     }
                 } else {
                     $(this)
                         .addClass('ui-droppable-active');
-                    $(ui.draggable).detach().css('top', '-0.40vw').css('left', '-0.10vw')
+                    $(ui.draggable).detach().css('top', '-1vw').css('left', '-1vw')
                         .appendTo(this);
                 }
             } else {
@@ -666,7 +671,7 @@ $(document).ready(() => {
                 $(ui.draggable)
                     .delay(800)
                     .queue(function(next) {
-                        $(this).css('top', '-0.40vw').css('left', '-0.10vw');
+                        $(this).css('top', '-1vw').css('left', '-1vw');
                         next();
                     });
             }
