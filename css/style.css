@@ -19,10 +19,13 @@ h2 {
 .board {
   display: flex;
   flex: 1;
+  width: 90%;
+  height: 70%;
   flex-direction: column;
   align-items: center;
-  justify-content: stretch;
+  justify-content: center;
   filter: brightness(0%) blur(20rem);
+  margin: 0 auto;
 }
 
 #gamelog {
@@ -31,9 +34,9 @@ h2 {
   flex: 1;
   align-items: space-around;
   justify-content: stretch;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   padding: 1rem;
-  height: 10rem;
+  height: 10vw;
   background-color: rgba(26, 26, 26, 0.89);
   color: rgb(11, 224, 7);
   font-family: monospace;
@@ -46,35 +49,35 @@ h2 {
 }
 
 .square {
-  width: 11rem;
-  height: 11rem;
-  margin: 0.8rem;
+  width: 10vw;
+  height: 10vw;
+  margin: 1vw;
 }
 
 .rect {
-  width: 11rem;
-  height: 5rem;
-  margin: 0.8rem;
+  width: 10vw;
+  height: 5vw;
+  margin: 1vw;
 }
 
 .lg-rect {
   display: flex;
   flex-direction: row;
   align-items: space-around;
-  margin: 0.8rem;
+  margin: 1vw;
 }
 
 .sm-sq {
-  width: 6rem;
-  height: 6rem;
-  margin: 0.8rem;
+  width: 5vw;
+  height: 5vw;
+  margin: 1vw;
 }
 
 .playerarea {
   display: flex;
   flex-direction: row;
   align-items: space-around;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .hand {
@@ -89,8 +92,8 @@ h2 {
 
 .card {
   position: relative;
-  top: -0.8rem;
-  left: -0.8rem;
+  top: -1vw;
+  left: -1vw;
 }
 
 .deck {
@@ -110,7 +113,7 @@ h2 {
 .playerbox {
   display: flex;
   flex-direction: row;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .crew {
@@ -145,13 +148,18 @@ h2 {
 }
 
 .corpside {
+  width: 100%;
+  height: 70%;
+  align-items: center;
+  justify-content: center;
   display: flex;
 }
 
 .server {
   display: flex;
   flex-direction: column;
-  margin: 0.8rem;
+  width: 20%;
+  margin: 0.5% 1%;
 }
 
 .bank {
@@ -164,10 +172,16 @@ h2 {
   background-image: url("../img/truck.png");
   background-position: center;
   background-size: contain;
-  width: 3rem;
-  height: 3rem;
+  background-repeat: no-repeat;
+  width: 1.5rem;
+  height: 1.5rem;
   margin: 0.2rem;
   display: none;
+}
+
+.scorebox {
+  width: 20%;
+  height: 10%;
 }
 
 .secslot {
@@ -176,15 +190,22 @@ h2 {
 }
 
 .security {
-  position: relative;
-  top: -0.8rem;
-  left: -0.8rem;
+  display: flex;
+  width: 100%;
+  align-self: stretch;
   background-color: rgba(33, 17, 166, 0.9);
 }
 
 .marker {
   display: none;
+  height: 2rem;
+  width: 6rem;
+  background-image: url("../img/arrow.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
+  bottom: -2rem;
   opacity: 0;
   text-align: center;
   z-index: 100;
@@ -192,10 +213,17 @@ h2 {
 
 .run-arrow {
   position: relative;
+  height: 2rem;
+  width: 6rem;
+  background-image: url("../img/arrow.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   top: 0;
   opacity: 0;
   text-align: center;
   animation: fadein 0.5s;
+  z-index: 100;
 }
 
 .run-arrow:hover {
@@ -210,31 +238,16 @@ h2 {
   box-shadow: 0 0 15px 5px rgba(58, 244, 19, 0.83);
 }
 
-.changeturn {
-  display: none;
-  background-color: rgba(0, 0, 0, 0.8);
-  flex: 1;
-  align-items: center;
-  color: white;
-  justify-content: space-around;
-  padding: 15px;
-  text-align: center;
-  z-index: 999;
-  box-shadow: 0 0 20px #999;
-}
-
 .popup {
   display: none;
   flex: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: stretch;
+  justify-content: center;
   background: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 15px;
   text-align: center;
-  top: 50%;
-  left: 50%;
   z-index: 999;
   box-shadow: 0 0 20px #999;
 }
@@ -272,7 +285,7 @@ button {
   background: #333;
   background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
   background: -moz-linear-gradient(top, #666, #000);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#666666', endColorstr='#000000')))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#666666', endColorstr='#000000'))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 }
 
 button:hover {
@@ -280,7 +293,7 @@ button:hover {
   background: #000;
   background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
   background: -moz-linear-gradient(top, #444, #000);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#444444', endColorstr='#000000')))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#444444', endColorstr='#000000'))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 }
 
 button:active {
@@ -289,7 +302,7 @@ button:active {
   color: #666;
   background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#444));
   background: -moz-linear-gradient(top, #000, #444);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#000000', endColorstr='#666666'))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#000000', endColorstr='#666666')))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
 }
 
 .ui-dialog-buttonset {

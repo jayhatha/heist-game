@@ -268,7 +268,7 @@ function initGame() {
 */
 function gameLog(stringToLog) {
     $(`<p>> ${stringToLog}<p>`).appendTo('#gamelog');
-    $('#gamelog').animate({ scrollTop: $('#gamelog').get(0).scrollHeight }, 2000);
+    $('#gamelog').animate({ scrollTop: $('#gamelog').get(0).scrollHeight }, 700);
 }
 
 /** subtracts credits from player's bank, updates bank display
@@ -306,8 +306,10 @@ function drawCards(draws) {
                 }
             });
             // okay, draw. and remove the drawn card from the deck.
-            $(gameState.firstOpen).append(`<div class='card sm-sq tooltip ${cardsInDeck[0].cardNum}'><img src='${cardsInDeck[0].img}'></div>`).hide().fadeIn(400);
+            $(gameState.firstOpen).append(`<div class='card sm-sq tooltip ${cardsInDeck[0].cardNum}'></div>`).hide().fadeIn(400);
             $(`.${cardsInDeck[0].cardNum}`).data(cardsInDeck[0]);
+            $(`.${cardsInDeck[0].cardNum}`).css('background-image', `url(${cardsInDeck[0].img})`);
+            $(`.${cardsInDeck[0].cardNum}`).css('background-size', 'contain');
             const cardInfo = $('<div>', { id: `tool${cardsInDeck[0].cardNum}` });
             $(cardInfo).append(`<img src='${cardsInDeck[0].img}'>`);
             $(cardInfo).append(`<h1>${cardsInDeck[0].name}</h1>`);
@@ -375,8 +377,17 @@ function placeSec(ice = 1) {
         });
         if ($(targetServer).children().children('.security').length < 3) {
             // place next available security there
-            $(gameState.firstSecOpen).append(`<div class='security rect tooltip ${securityPool[0].cardNum}'><img src='img/cardback.jpg'</div>`).hide().fadeIn(1000);
+            $(gameState.firstSecOpen).append(`<div class='security ${securityPool[0].cardNum}'></div>`);
             $(`.${securityPool[0].cardNum}`).data(securityPool[0]);
+            $(`.${securityPool[0].cardNum}`).css('background-image', 'url(img/cardback.jpg)').hide().fadeIn(1000);
+            $(`.${securityPool[0].cardNum}`).css('background-size', 'cover');
+            $(`.${securityPool[0].cardNum}`).css('background-position', 'center');
+            const secInfo = $('<div>', { id: `tool${securityPool[0].cardNum}` });
+            $(secInfo).append(`<img src='${securityPool[0].img}'>`);
+            $(secInfo).append(`<h1>${securityPool[0].name}</h1>`);
+            $(secInfo).append(`<h2> Strength: ${securityPool[0].strength}</h2>`);
+            $(secInfo).appendTo('.tooltip_templates');
+            $(`.${securityPool[0].cardNum}`).attr('data-tooltip-content', `#tool${securityPool[0].cardNum}`);
             fixTooltips();
             securityPool.shift();
         } else if (!gameState.playersTurn) {
@@ -411,15 +422,11 @@ function approach(e) {
     runDepth--; // we get one step closer to the bank
     gameState.running = true; // and turn off all the actions that aren't allowed during a run
     currentOpponent = $(gameState.currentServer).children('.secslot').children('.security').eq(runDepth); // determine which security card we're interacting with
-    currentOpponent.children('img').attr('src', currentOpponent.data().img); // "flip over" the hidden security card the first time it's encountered
+    currentOpponent.css('background-image', `url(${currentOpponent.data().img})`); // "flip over" the hidden security card the first time it's encountered
+    currentOpponent.css('background-size', 'contain');
+    currentOpponent.css('background-position', 'center');
     // updating the security card's tooltip to show its stats
-    const secInfo = $('<div>', { id: `tool${currentOpponent.data().cardNum}` });
-    $(secInfo).append(`<img src='${currentOpponent.data().img}'>`);
-    $(secInfo).append(`<h1>${currentOpponent.data().name}</h1>`);
-    $(secInfo).append(`<h2> Strength: ${currentOpponent.data().strength}</h2>`);
-    $(secInfo).appendTo('.tooltip_templates');
-    $(`.${currentOpponent.data().cardNum}`).attr('data-tooltip-content', `#tool${currentOpponent.data().cardNum}`);
-    $(`.${currentOpponent.data().cardNum}`).attr('title', 'testing');
+    currentOpponent.addClass('tooltip');
     fixTooltips();
     $('.marker').css('display', 'block');
     $('.marker').fadeTo(400, 0.5).appendTo(currentOpponent); // point the run indicator arrow at the current position
@@ -547,7 +554,7 @@ function addTruck() {
 
 /** starting the player's turn */
 function playerTurn() {
-    // display the 'your turn' animation
+    // display a 'your turn' animation?
     gameLog('Your turn!');
     gameState.playersTurn = true;
     gameState.playerClicks = 4;
@@ -569,7 +576,7 @@ function checkForWin() {
 }
 
 $(document).ready(() => {
-    // fixing tooltips
+    // fixing tooltips - listening for new .tooltip objects and activating them
     $('body').on('mouseenter', '.tooltip:not(.tooltipstered)', function() {
         $(this)
             .tooltipster({
@@ -626,14 +633,15 @@ $(document).ready(() => {
                             spendClick();
                             $(this)
                                 .addClass('ui-droppable-active');
-                            $(ui.draggable).detach().css({ top: -13.57, left: -12.5 }).appendTo(this);
+                            $(ui.draggable).detach().css('top', '-0.40vw').css('left', '-0.10vw')
+                                .appendTo(this);
                             $(ui.draggable).draggable('disable');
                         } else {
                             $('.clicks').effect('shake', 'slow');
                             $(ui.draggable)
                                 .delay(800)
                                 .queue(function(next) {
-                                    $(this).css({ top: -13.57, left: -12.5 });
+                                    $(this).css('top', '-0.40vw').css('left', '-0.10vw');
                                     next();
                                 });
                         }
@@ -643,21 +651,22 @@ $(document).ready(() => {
                         $(ui.draggable)
                             .delay(800)
                             .queue(function(next) {
-                                $(this).css({ top: -13.57, left: -12.5 });
+                                $(this).css('top', '-0.40vw').css('left', '-0.10vw');
                                 next();
                             });
                     }
                 } else {
                     $(this)
                         .addClass('ui-droppable-active');
-                    $(ui.draggable).detach().css({ top: -13.57, left: -12.5 }).appendTo(this);
+                    $(ui.draggable).detach().css('top', '-0.40vw').css('left', '-0.10vw')
+                        .appendTo(this);
                 }
             } else {
                 $('.marker').effect('shake', 'slow');
                 $(ui.draggable)
                     .delay(800)
                     .queue(function(next) {
-                        $(this).css({ top: -13.57, left: -12.5 });
+                        $(this).css('top', '-0.40vw').css('left', '-0.10vw');
                         next();
                     });
             }
