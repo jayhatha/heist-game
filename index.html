@@ -6,16 +6,37 @@
   <title>heist</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat|Rubik" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/tooltipster.bundle.min.css" />
+  <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-borderless.min.css" />
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
   <script src="js/script.js"></script>
+  <script>
+        $(document).ready(function() {
+          $('.tooltip').tooltipster({
+          theme: 'tooltipster-borderless',
+          animation: 'fade',
+          delay: 200
+
+});
+        });
+  </script>
 </head>
 
 <body>
+<div class="tooltip_templates">
+</div>
   <div class="popup">
     <h2>One last job ... </h2>
     <p>You're a professional thief looking to get out of the game, and the perfect opportunity has just presented itself. Four high-profile locations around the city are changing security contractors on the same night. During the switchover, they'll all
       be vulnerable. If you can take down even three of them before their new security is in place, you'll be set for life. Now it's time to assemble your crew, scout the locations, and pull one last job.</p>
+  </div>
+  <div class="changeturn" id="playerbanner">
+    <h1>It's your turn!</h1>
+  </div>
+  <div class="changeturn" id="corpbanner">
+    <h1>The powers that be are moving!</h1>
   </div>
   <div class="marker">
     <img src="img/arrow.png" alt="arrow">
@@ -135,9 +156,9 @@
         </div>
       </div>
       <div class="counters lg-rect">
-        <div class="credits sm-sq">
+        <div class="credits sm-sq tooltip" title="Your money. Click to spend one action and gain $1.">
         </div>
-        <div class="clicks sm-sq">
+        <div class="clicks sm-sq tooltip" title="Your remaining actions this turn.">
         </div>
       </div>
     </div>
@@ -156,17 +177,20 @@
         </div>
       </div>
       <div class="deck lg-rect">
-        <div class="draw sm-sq">
+        <div class="draw sm-sq tooltip" title="Your deck. Click to draw a card.">
         </div>
         <div class="discard sm-sq">
         </div>
       </div>
       <div class="scorebox lg-rect">
-        <div id="playerscore"   class= "sm-sq">
+        <div id="playerscore"   class= "sm-sq tooltip" title="Your score. Rob 3 banks to complete the heist.">
         </div>
-        <div id="corpscore" class= "sm-sq">
+        <div id="corpscore" class= "sm-sq tooltip" title="The banks that have been cleared out. If the powers that be clear 3 banks, your heist fails.">
         </div>
       </div>
+
+    </div>
+    <div id="gamelog">
     </div>
 
   </div>
