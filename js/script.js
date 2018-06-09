@@ -239,7 +239,8 @@ function shuffleDeck(deck) {
 
 /** begins the game, sets all gameState variables */
 function initGame() {
-    gameLog('The heist is starting!');
+    // init new game
+    $('.gamelog').text('The heist is starting!');
     gameState.gameOver = false;
     gameState.running = false;
     gameState.playersTurn = true;
@@ -249,18 +250,37 @@ function initGame() {
     shuffleDeck(securityPool);
     placeSec(5);
     gameState.playerCash = 5;
+    gameState.playerClicks = 4;
     gameState.playerScore = 0;
     gameState.corpScore = 0;
-    $('#corpscore').click(addTruck);
     $('#playerscore').append(`<h1>${gameState.playerScore}</h1>`);
     $('#corpscore').append(`<h1>${gameState.corpScore}</h1>`);
     $('.bank').data('trucks', 0);
     $('.credits').append(`<h1>${gameState.playerCash}</h1>`);
-    gameState.playerClicks = 4;
     $('.clicks').append(`<h1>${gameState.playerClicks}</h1>`);
     $('.deck').click(clickToDraw);
     $('.credits').click(clickForCredit);
     $('.run-arrow').click(approach);
+}
+
+/** resets the game */
+function restartGame() {
+    // resetting everything from last game
+    $('.cardslot').children().remove();
+    $('.secslot').children().remove();
+    $('.crew').children().remove();
+    $('.column').addClass('server');
+    $('.square').addClass('bank');
+    $('.column').off('blur');
+    $('.column').off('greyscale');
+    $('.column').off('sepia');
+    $('#corpscore').text(null);
+    $('#playerscore').text(null);
+    $('.credits').text(null);
+    $('.clicks').text(null);
+    $('.deck').off();
+    $('.credits').off();
+    $('.run-arrow').off();
 }
 
 /** adds a status message to the game log window, to let the player know what just happened
@@ -512,47 +532,53 @@ function corpTurn() {
     gameState.playersTurn = false;
     gameLog('The powers that be are moving.');
     const secNow = $('.security').length;
+    let truckCount = 0;
     // randomly determine where computer will put trucks and security
     for (let i = 0; i < 3; i++) {
         const rando = Math.floor(Math.random() * (6 - 1)) + 0;
+
         if (rando === 0 && gameState.gameOver === false) {
             placeSec();
         } else {
-            addTruck();
+            truckCount++;
         }
     }
     if (gameState.gameOver === false) {
-        gameLog('More trucks have arrived to secure the loot.');
         if ($('.security').length > secNow) {
             gameLog('New security measures are in place.');
         }
+        addTruck(truckCount);
+        gameLog('Trucks have arrived to secure the loot.');
         playerTurn();
     }
 }
 
 /** adding a truck to the bank, if 3 trucks, corp can score */
-function addTruck() {
-    const banksLeft = $('.bank').length;
-    const rando = Math.floor(Math.random() * (banksLeft - 0)) + 0;
-    const targetBank = $('.bank').eq(rando);
-    // check for first open slot
-    targetBank.data().trucks++;
-    for (let i = 0; i < targetBank.data().trucks; i++) {
-        targetBank.children(`.truck:eq(${i})`).fadeIn(1000).css('display', 'inline-block');
-    }
-    if (targetBank.data().trucks >= 3) {
-        gameLog('Trucks start to pull away with the loot. It\'s too late to rob this bank.');
-        gameState.corpScore++;
-        $('#corpscore h1').text(gameState.corpScore);
-        gameState.currentServer = targetBank.parent();
-        targetBank.removeClass('bank');
-        $(gameState.currentServer).children('.run-arrow').css('display', 'none');
-        $(gameState.currentServer).children('.run-arrow').removeClass('run-arrow');
-        $(gameState.currentServer).children().children().remove();
-        $(gameState.currentServer).css('filter', 'sepia(100%) blur(0.5em)');
-        $(gameState.currentServer).removeClass('server');
+function addTruck(trucks) {
+    for (let i = 0; i < trucks; i++) {
+    // pick a random bank
+        const banksLeft = $('.bank').length;
+        const rando = Math.floor(Math.random() * (banksLeft - 0)) + 0;
+        const targetBank = $('.bank').eq(rando);
+        // check for first open place to put a truck
+        targetBank.data().trucks++;
+        for (let i = 0; i < targetBank.data().trucks; i++) {
+            targetBank.children(`.truck:eq(${i})`).fadeIn(1000).css('display', 'inline-block');
+        }
+        if (targetBank.data().trucks >= 3) {
+            gameLog('Trucks start to pull away with the loot. It\'s too late to rob this bank.');
+            gameState.corpScore++;
+            $('#corpscore h1').text(gameState.corpScore);
+            gameState.currentServer = targetBank.parent();
+            targetBank.removeClass('bank');
+            $(gameState.currentServer).children('.run-arrow').css('display', 'none');
+            $(gameState.currentServer).children('.run-arrow').removeClass('run-arrow');
+            $(gameState.currentServer).children().children().remove();
+            $(gameState.currentServer).css('filter', 'sepia(100%) blur(0.5em)');
+            $(gameState.currentServer).removeClass('server');
 
-        checkForWin();
+            checkForWin();
+        }
     }
 }
 
