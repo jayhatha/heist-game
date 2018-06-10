@@ -451,9 +451,16 @@ $(document).ready(() => {
         },
         buttons: [
             {
-                text: 'Let\'s rob!',
+                text: 'I\'m ready to rob!',
                 click: function() {
                     $(this).dialog('close');
+                }
+            },
+            {
+                text: 'Walk me through this.',
+                click: function() {
+                    $(this).dialog('close');
+                    introJs().start();
                 }
             }
         ]

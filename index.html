@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat|Rubik" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/tooltipster.bundle.min.css" />
   <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-borderless.min.css" />
+  <link rel="stylesheet" href="css/introjs.min.css">
+  <link rel="stylesheet" href="css/introjs-modern.css">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="js/jquery.ui.touch-punch.min.js"></script>
@@ -40,14 +42,14 @@
   </div>
   <div class="board">
     <div class="scorebox lg-rect">
-      <div id="playerscore"   class= "sm-sq tooltip" title="Your score. Rob 3 banks to complete the heist.">
+      <div id="playerscore"   class= "sm-sq" data-step="9" data-intro="If you break all the security, or the bank is undefended, you score. Score 3 times to win.">
       </div>
-      <div id="corpscore" class= "sm-sq tooltip" title="The banks that have been cleared out. If the powers that be clear 3 banks, your heist fails.">
+      <div id="corpscore" class= "sm-sq"  data-step="10" data-intro="The banks aren't going to make it easy, though. They're bringing in trucks to secure the loot. If three trucks make it to a bank, it slips out of your reach. Good luck!">
       </div>
     </div>
     <div class="corpside">
-      <div class="server column" id="server1">
-        <div class="bank square">
+      <div class="server column" id="server1" data-intro="They're not completely vulnerable, though. You'll have to proceed through their layers of security." data-step="2">
+        <div class="bank square" data-intro="Your objective is to break into these vulnerable banks." data-step="1">
           <div class="truck">
           </div>
           <div class="truck">
@@ -62,7 +64,7 @@
         </div>
         <div class="secslot rect" id="sec3">
         </div>
-        <div class="run-arrow rect">
+        <div class="run-arrow rect" data-step="8" data-intro="When you're ready to attack a bank, click this arrow. If you run into security, a crew member with a matching color can help you break it. Otherwise, you're out of luck." >
         </div>
       </div>
       <div class="server column" id="server2">
@@ -143,7 +145,7 @@
       </div>
     </div>
     <div class="playerbox">
-      <div class="crewbox lg-rect">
+      <div class="crewbox lg-rect" data-step="6" data-intro="Some of your cards represent members of your crew. Drag them here to hire them.">
         <div class="crew sm-sq" id="crew1">
         </div>
         <div class="crew sm-sq" id="crew2">
@@ -154,15 +156,15 @@
         </div>
       </div>
       <div class="counters lg-rect">
-        <div class="credits sm-sq tooltip" title="Your money. Click to spend one action and gain $1.">
+        <div class="credits sm-sq"  data-step="7" data-intro="... if you have enough cash, that is. You start with $5, but you can click here to get more money.">
         </div>
-        <div class="clicks sm-sq tooltip" title="Your remaining actions this turn.">
+        <div class="clicks sm-sq"  data-step="5" data-intro="And it'll cost you an action. You get 4 per turn, so use them wisely.">
         </div>
       </div>
     </div>
 
     <div class="playerarea">
-      <div class="hand lg-rect">
+      <div class="hand lg-rect" data-intro="When you do, it'll go to your hand, over here." data-step="4">
         <div class="cardslot sm-sq" id="hand1">
         </div>
         <div class="cardslot hand2 sm-sq" id="hand2">
@@ -175,7 +177,7 @@
         </div>
       </div>
       <div class="deck lg-rect">
-        <div class="draw sm-sq tooltip" title="Your deck. Click to draw a card.">
+        <div class="draw sm-sq" data-intro="Fortunately, you've got some tricks up your sleeve. This is your deck. Click it to draw a card." data-step="3">
         </div>
         <div class="discard sm-sq">
         </div>
@@ -187,7 +189,7 @@
     </div>
 
   </div>
-
+<script type="text/javascript" src="js/intro.min.js"></script>
 </body>
 
 </html>
