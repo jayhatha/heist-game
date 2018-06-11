@@ -4,7 +4,7 @@ const cards = [
         name: 'Danny',
         type: 'crew',
         img: 'img/01.jpg',
-        color: 'red',
+        color: 'Red',
         cost: 2,
         strength: 2,
         break: 2
@@ -14,7 +14,7 @@ const cards = [
         name: 'Rusty',
         type: 'crew',
         img: 'img/02.jpg',
-        color: 'green',
+        color: 'Green',
         cost: 2,
         strength: 2,
         break: 2
@@ -24,7 +24,7 @@ const cards = [
         name: 'Linus',
         type: 'crew',
         img: 'img/03.jpg',
-        color: 'blue',
+        color: 'Blue',
         cost: 2,
         strength: 2,
         break: 2
@@ -34,7 +34,7 @@ const cards = [
         name: 'Tess',
         type: 'crew',
         img: 'img/04.jpg',
-        color: 'yellow',
+        color: 'Yellow',
         cost: 2,
         strength: 2,
         break: 2
@@ -44,7 +44,7 @@ const cards = [
         name: 'Logan',
         type: 'crew',
         img: 'img/05.jpg',
-        color: 'red',
+        color: 'Red',
         cost: 4,
         strength: 3,
         break: 1
@@ -54,7 +54,7 @@ const cards = [
         name: 'Yanny',
         type: 'crew',
         img: 'img/06.jpg',
-        color: 'green',
+        color: 'Green',
         cost: 4,
         strength: 3,
         break: 1
@@ -64,7 +64,7 @@ const cards = [
         name: 'Laurel',
         type: 'crew',
         img: 'img/07.jpg',
-        color: 'blue',
+        color: 'Blue',
         cost: 4,
         strength: 3,
         break: 1
@@ -74,7 +74,7 @@ const cards = [
         name: 'Nathan',
         type: 'crew',
         img: 'img/08.jpg',
-        color: 'yellow',
+        color: 'Yellow',
         cost: 4,
         strength: 3,
         break: 1
@@ -84,7 +84,7 @@ const cards = [
     //     name: 'Eliot',
     //     type: 'crew',
     //     img: 'img/01.jpg',
-    //     color: 'red',
+    //     color: 'Red',
     //     cost: 6,
     //     strength: 4,
     //     break: 1
@@ -94,7 +94,7 @@ const cards = [
     //     name: 'Alec',
     //     type: 'crew',
     //     img: 'img/02.jpg',
-    //     color: 'green',
+    //     color: 'Green',
     //     cost: 6,
     //     strength: 4,
     //     break: 1
@@ -104,7 +104,7 @@ const cards = [
     //     name: 'Parker',
     //     type: 'crew',
     //     img: 'img/03.jpg',
-    //     color: 'blue',
+    //     color: 'Blue',
     //     cost: 6,
     //     strength: 4,
     //     break: 1
@@ -114,7 +114,7 @@ const cards = [
     //     name: 'Sophie',
     //     type: 'crew',
     //     img: 'img/04.jpg',
-    //     color: 'yellow',
+    //     color: 'Yellow',
     //     cost: 6,
     //     strength: 4,
     //     break: 1
@@ -248,7 +248,7 @@ const securityMeasures = [
         cardNum: 'sec0',
         name: 'Electrified Fence',
         img: 'img/sec01.jpg',
-        color: 'green',
+        color: 'Green',
         cost: 2,
         strength: 2,
         subs: 2
@@ -257,7 +257,7 @@ const securityMeasures = [
         cardNum: 'sec1',
         name: 'Rent-a-Cop',
         img: 'img/sec02.jpg',
-        color: 'red',
+        color: 'Red',
         cost: 1,
         strength: 1,
         subs: 1
@@ -266,7 +266,7 @@ const securityMeasures = [
         cardNum: 'sec2',
         name: 'Reinforced Door',
         img: 'img/sec03.jpg',
-        color: 'yellow',
+        color: 'Yellow',
         cost: 1,
         strength: 2,
         subs: 1
@@ -275,7 +275,7 @@ const securityMeasures = [
         cardNum: 'sec3',
         name: 'Retina Scanner',
         img: 'img/sec04.jpg',
-        color: 'blue',
+        color: 'Blue',
         cost: 1,
         strength: 1,
         subs: 1
@@ -284,7 +284,7 @@ const securityMeasures = [
         cardNum: 'sec3',
         name: 'Retina Scanner',
         img: 'img/sec04.jpg',
-        color: 'blue',
+        color: 'Blue',
         cost: 1,
         strength: 1,
         subs: 1
@@ -293,7 +293,7 @@ const securityMeasures = [
         cardNum: 'sec3',
         name: 'Retina Scanner',
         img: 'img/sec04.jpg',
-        color: 'blue',
+        color: 'Blue',
         cost: 1,
         strength: 1,
         subs: 1
@@ -302,7 +302,7 @@ const securityMeasures = [
         cardNum: 'sec0',
         name: 'Electrified Fence',
         img: 'img/sec01.jpg',
-        color: 'green',
+        color: 'Green',
         cost: 2,
         strength: 2,
         subs: 2
@@ -311,7 +311,7 @@ const securityMeasures = [
         cardNum: 'sec1',
         name: 'Rent-a-Cop',
         img: 'img/sec02.jpg',
-        color: 'red',
+        color: 'Red',
         cost: 1,
         strength: 1,
         subs: 1
@@ -320,7 +320,7 @@ const securityMeasures = [
         cardNum: 'sec2',
         name: 'Reinforced Door',
         img: 'img/sec03.jpg',
-        color: 'yellow',
+        color: 'Yellow',
         cost: 1,
         strength: 2,
         subs: 1
@@ -329,7 +329,7 @@ const securityMeasures = [
         cardNum: 'sec0',
         name: 'Electrified Fence',
         img: 'img/sec01.jpg',
-        color: 'green',
+        color: 'Green',
         cost: 2,
         strength: 2,
         subs: 2
@@ -338,7 +338,7 @@ const securityMeasures = [
         cardNum: 'sec1',
         name: 'Rent-a-Cop',
         img: 'img/sec02.jpg',
-        color: 'red',
+        color: 'Red',
         cost: 1,
         strength: 1,
         subs: 1
@@ -347,7 +347,7 @@ const securityMeasures = [
         cardNum: 'sec2',
         name: 'Reinforced Door',
         img: 'img/sec03.jpg',
-        color: 'yellow',
+        color: 'Yellow',
         cost: 1,
         strength: 2,
         subs: 1
@@ -356,7 +356,7 @@ const securityMeasures = [
         cardNum: 'sec0',
         name: 'Electrified Fence',
         img: 'img/sec01.jpg',
-        color: 'green',
+        color: 'Green',
         cost: 2,
         strength: 2,
         subs: 2
@@ -365,7 +365,7 @@ const securityMeasures = [
         cardNum: 'sec1',
         name: 'Rent-a-Cop',
         img: 'img/sec02.jpg',
-        color: 'red',
+        color: 'Red',
         cost: 1,
         strength: 1,
         subs: 1
@@ -374,7 +374,7 @@ const securityMeasures = [
         cardNum: 'sec2',
         name: 'Reinforced Door',
         img: 'img/sec03.jpg',
-        color: 'yellow',
+        color: 'Yellow',
         cost: 1,
         strength: 2,
         subs: 1

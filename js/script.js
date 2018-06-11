@@ -175,6 +175,7 @@ function drawCards(draws) {
             if ($(`.${cardsInDeck[0].cardNum}`).data().type === 'crew') {
                 console.log(cardsInDeck[0].type);
                 $(`.${cardsInDeck[0].cardNum}`).addClass('man');
+                $(cardInfo).append(`<h2> Color: ${cardsInDeck[0].color}</h2>`);
                 $(cardInfo).append(`<h2> Cost to Hire: ${cardsInDeck[0].cost}</h2>`);
                 $(cardInfo).append(`<h2> Strength: ${cardsInDeck[0].strength}</h2>`);
                 $(cardInfo).append(`<h2> Cost to Break Security: ${cardsInDeck[0].break}</h2>`);
@@ -282,6 +283,7 @@ function placeSec(ice = 1) {
             const secInfo = $('<div>', { id: `tool${securityPool[0].cardNum}` });
             $(secInfo).append(`<img src='${securityPool[0].img}'>`);
             $(secInfo).append(`<h1>${securityPool[0].name}</h1>`);
+            $(secInfo).append(`<h2> Color: ${securityPool[0].color}</h2>`);
             $(secInfo).append(`<h2> Strength: ${securityPool[0].strength}</h2>`);
             $(secInfo).appendTo('.tooltip_templates');
             $(`.${securityPool[0].cardNum}`).attr('data-tooltip-content', `#tool${securityPool[0].cardNum}`);
