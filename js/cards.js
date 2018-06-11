@@ -228,18 +228,18 @@ const cards = [
             gameState.insideMan = true;
         },
         effect: 'On your next run, bypass the first layer of security.'
+    },
+    {
+        cardNum: 21,
+        name: 'Roulette',
+        type: 'event',
+        img: 'img/e04.jpg',
+        cost: 2,
+        use: function() {
+            roulette();
+        },
+        effect: 'Scramble all security measures. Use only as a last resort.'
     }
-    // {
-    //     cardNum: 21,
-    //     name: 'Roulette',
-    //     type: 'event',
-    //     img: 'img/e04.jpg',
-    //     cost: 2,
-    //     use: function() {
-    //         roulette();
-    //     },
-    //     effect: 'Scramble all security measures. Use only as a last resort.'
-    // }
 
 ];
 // list of all available security tiles

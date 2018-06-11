@@ -532,9 +532,14 @@ function checkForWin() {
     }
 }
 
-// function roulette() {
-//     console.log('spin that wheel!');
-// }
+function roulette() {
+    const totalSec = $('.secslot').children('.security').length;
+    $('.security').each(function() {
+        securityPool.push($(this));
+        $(this).remove();
+    });
+    placeSec(totalSec);
+}
 
 $(document).ready(() => {
     // turning on game buttons
