@@ -130,17 +130,17 @@ const cards = [
         },
         effect: 'Gain $9'
     },
-    {
-        cardNum: 12,
-        name: 'Lucky Break',
-        type: 'event',
-        img: 'img/e01.jpg',
-        cost: 5,
-        use: function() {
-            charge(-9);
-        },
-        effect: 'Gain $9'
-    },
+    // {
+    //     cardNum: 12,
+    //     name: 'Lucky Break',
+    //     type: 'event',
+    //     img: 'img/e01.jpg',
+    //     cost: 5,
+    //     use: function() {
+    //         charge(-9);
+    //     },
+    //     effect: 'Gain $9'
+    // },
     {
         cardNum: 13,
         name: 'Lucky Break',
@@ -163,17 +163,17 @@ const cards = [
         },
         effect: 'Gain $9'
     },
-    {
-        cardNum: 15,
-        name: 'Pennies from Heaven',
-        type: 'event',
-        img: 'img/e02.jpg',
-        cost: 0,
-        use: function() {
-            charge(-2);
-        },
-        effect: 'Gain $2'
-    },
+    // {
+    //     cardNum: 15,
+    //     name: 'Pennies from Heaven',
+    //     type: 'event',
+    //     img: 'img/e02.jpg',
+    //     cost: 0,
+    //     use: function() {
+    //         charge(-2);
+    //     },
+    //     effect: 'Gain $2'
+    // },
     {
         cardNum: 16,
         name: 'Pennies from Heaven',
@@ -207,17 +207,17 @@ const cards = [
         },
         effect: 'Gain $2'
     },
-    {
-        cardNum: 19,
-        name: 'Inside Man',
-        type: 'event',
-        img: 'img/e03.jpg',
-        cost: 2,
-        use: function() {
-            gameState.insideMan = true;
-        },
-        effect: 'On your next run, bypass the first layer of security.'
-    },
+    // {
+    //     cardNum: 19,
+    //     name: 'Inside Man',
+    //     type: 'event',
+    //     img: 'img/e03.jpg',
+    //     cost: 2,
+    //     use: function() {
+    //         gameState.insideMan = true;
+    //     },
+    //     effect: 'On your next run, bypass the first layer of security.'
+    // },
     {
         cardNum: 20,
         name: 'Inside Man',

@@ -115,6 +115,7 @@ h2 {
 }
 
 .discardheader {
+  position: absolute;
   font-size: 0.6em;
   z-index: 99;
 }

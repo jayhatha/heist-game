@@ -105,7 +105,7 @@ function restartGame() {
     $('#playerscore').text(null);
     $('.credits').text(null);
     $('.clicks').text(null);
-    $('.deck').off();
+    $('.draw').off();
     $('.credits').off();
     $('.run-arrow').off();
     $('.draw').click(clickToDraw);
@@ -355,9 +355,9 @@ function approach(e) {
         }
     }
     runDepth--; // we get one step closer to the bank
-    if (gameState.insideMan === true && runDepth > 1) {
+    if (gameState.insideMan === true && runDepth >= 1) {
         runDepth--;
-    } else if (gameState.insideMan === true && runDepth <= 1) {
+    } else if (gameState.insideMan === true && runDepth < 1) {
         robBank();
         return false;
     }
@@ -460,7 +460,7 @@ function corpTurn() {
 
         if (rando < 2 && !gameState.gameOver) {
             placeSec();
-        } else if (rando >= 4 && !gameState.gameOver) {
+        } else if (rando >= 3 && !gameState.gameOver) {
             truckCount++;
         }
     }
