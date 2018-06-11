@@ -94,12 +94,13 @@ function restartGame() {
     $('.cardslot').children().remove();
     $('.secslot').children().remove();
     $('.discard').children().remove();
+    $('.bank').children().remove();
     $('.crew').children().remove();
     $('.column').addClass('server');
     $('.square').addClass('bank');
-    $('.server').off('blur');
-    $('.server').off('greyscale');
-    $('.server').off('sepia');
+    $('.arrow').addClass('run-arrow');
+    $('.run-arrow').css('display', 'flex');
+    $('.server').attr('style', '');
     $('#corpscore').text(null);
     $('#playerscore').text(null);
     $('.credits').text(null);
@@ -107,6 +108,9 @@ function restartGame() {
     $('.deck').off();
     $('.credits').off();
     $('.run-arrow').off();
+    $('.draw').click(clickToDraw);
+    $('.credits').click(clickForCredit);
+    $('.run-arrow').click(approach);
     cardsInDeck.length = 0;
     securityPool.length = 0;
     initGame();
