@@ -103,6 +103,22 @@ h2 {
   background-color: rgba(177, 169, 181, 0.1);
 }
 
+.deckheader,
+.discardheader {
+  font-family: Rubik, sans-serif;
+  background-color: rgba(87, 81, 81, 0.72);
+  color: white;
+}
+
+.deckheader {
+  font-size: 0.8em;
+}
+
+.discardheader {
+  font-size: 0.6em;
+  z-index: 99;
+}
+
 .discard {
   border: 1px solid grey;
   background-color: rgba(68, 119, 113, 0.1);
@@ -226,12 +242,64 @@ h2 {
   opacity: 0.5;
 }
 /* SPECIAL FX */
+@keyframes slidein {
+  0% {
+    margin-left: -80%;
+  }
+
+  20% {
+    margin-left: -80%;
+  }
+
+  35% {
+    margin-left: 0;
+  }
+
+  100% {
+    margin-left: 0;
+  }
+}
+@keyframes showup {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 .glow {
   box-shadow: 0 0 15px 5px rgba(255, 255, 190, 0.75);
 }
 
 .focused {
   box-shadow: 0 0 15px 5px rgba(58, 244, 19, 0.83);
+}
+
+.banner {
+  display: none;
+  position: absolute;
+  left: 25%;
+  top: 40%;
+  width: 50%;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Montserrat, sans-serif;
+  font-size: 4em;
+  color: white;
+  background-color: rgba(8, 17, 1, 0.8);
 }
 
 .popup {

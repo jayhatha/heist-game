@@ -13,7 +13,8 @@ const gameState = [
         firstSecOpen: null,
         currentOpponent: null,
         playerScore: null,
-        corpScore: null
+        corpScore: null,
+        insideMan: false
     }
 ];
 
@@ -28,16 +29,20 @@ function fixTooltips() {
     });
 }
 
-/** fetches the card list and puts it in deck array -- this should be condensed with initsec*/
+/** fetches the card list and puts it in deck array -- this could maybe be condensed with initsec*/
 function initDeck() {
-    for (let i = 0; i < cards.length; i++) { // replace this with JSON object eventually
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].cardNum = i;
         cardsInDeck.push(cards[i]);
     }
+    $('.deckheader').text(`Deck (${cardsInDeck.length})`);
+    $('.discardheader').text('Discard (0)');
 }
 
 /** fetches all security measures and puts them in the corp's pool */
 function initSec() {
-    for (let i = 0; i < securityMeasures.length; i++) { // replace this with JSON object eventually
+    for (let i = 0; i < securityMeasures.length; i++) {
+        securityMeasures[i].cardNum = `sec${i}`;
         securityPool.push(securityMeasures[i]);
     }
 }
@@ -61,7 +66,7 @@ function shuffleDeck(deck) {
 /** begins the game, sets all gameState variables */
 function initGame() {
     // init new game
-    $('.gamelog').text('The heist is starting!');
+    gameLog('The heist is starting!');
     gameState.gameOver = false;
     gameState.running = false;
     gameState.playersTurn = true;
@@ -79,22 +84,22 @@ function initGame() {
     $('.bank').data('trucks', 0);
     $('.credits').append(`<h1>${gameState.playerCash}</h1>`);
     $('.clicks').append(`<h1>${gameState.playerClicks}</h1>`);
-    $('.deck').click(clickToDraw);
-    $('.credits').click(clickForCredit);
-    $('.run-arrow').click(approach);
+    noFreeWin();
 }
 
 /** resets the game */
 function restartGame() {
     // resetting everything from last game
+    $('.banner').slideToggle(1000);
     $('.cardslot').children().remove();
     $('.secslot').children().remove();
+    $('.discard').children().remove();
     $('.crew').children().remove();
     $('.column').addClass('server');
     $('.square').addClass('bank');
-    $('.column').off('blur');
-    $('.column').off('greyscale');
-    $('.column').off('sepia');
+    $('.server').off('blur');
+    $('.server').off('greyscale');
+    $('.server').off('sepia');
     $('#corpscore').text(null);
     $('#playerscore').text(null);
     $('.credits').text(null);
@@ -102,6 +107,9 @@ function restartGame() {
     $('.deck').off();
     $('.credits').off();
     $('.run-arrow').off();
+    cardsInDeck.length = 0;
+    securityPool.length = 0;
+    initGame();
 }
 
 /** adds a status message to the game log window, to let the player know what just happened
@@ -116,8 +124,12 @@ function gameLog(stringToLog) {
 * @param {number} cost The cost in credits
 */
 function charge(cost) {
-    gameState.playerCash = gameState.playerCash - cost;
-    $('.credits h1').text(gameState.playerCash);
+    if (gameState.playerCash >= cost) {
+        gameState.playerCash = gameState.playerCash - cost;
+        $('.credits h1').text(gameState.playerCash);
+    } else {
+        $('.draw').effect('shake', 'slow');
+    }
 }
 
 /** subtracts a click from player's actions, updates clicks display
@@ -151,18 +163,55 @@ function drawCards(draws) {
             $(`.${cardsInDeck[0].cardNum}`).data(cardsInDeck[0]);
             $(`.${cardsInDeck[0].cardNum}`).css('background-image', `url(${cardsInDeck[0].img})`);
             $(`.${cardsInDeck[0].cardNum}`).css('background-size', 'contain');
+
             const cardInfo = $('<div>', { id: `tool${cardsInDeck[0].cardNum}` });
             $(cardInfo).append(`<img src='${cardsInDeck[0].img}'>`);
             $(cardInfo).append(`<h1>${cardsInDeck[0].name}</h1>`);
-            $(cardInfo).append(`<h2> Cost to Hire: ${cardsInDeck[0].cost}</h2>`);
-            $(cardInfo).append(`<h2> Strength: ${cardsInDeck[0].strength}</h2>`);
-            $(cardInfo).append(`<h2> Cost to Break Security: ${cardsInDeck[0].break}</h2>`);
+
+            if ($(`.${cardsInDeck[0].cardNum}`).data().type === 'crew') {
+                console.log(cardsInDeck[0].type);
+                $(`.${cardsInDeck[0].cardNum}`).addClass('man');
+                $(cardInfo).append(`<h2> Cost to Hire: ${cardsInDeck[0].cost}</h2>`);
+                $(cardInfo).append(`<h2> Strength: ${cardsInDeck[0].strength}</h2>`);
+                $(cardInfo).append(`<h2> Cost to Break Security: ${cardsInDeck[0].break}</h2>`);
+            } else if ($(`.${cardsInDeck[0].cardNum}`).data().type === 'event') {
+                console.log('type is event');
+                console.log($(`.${cardsInDeck[0].cardNum}`).data().name);
+                $(`.${cardsInDeck[0].cardNum}`).click((e) => {
+                    const target = $(e.target);
+                    if (gameState.playerClicks > 0 && gameState.playerCash >= target.data().cost) {
+                        target.data().use();
+                        target.off();
+                        $('.discard').children('.card').hide();
+                        target.appendTo('.discard');
+                        // if ($('.discard').children('.card').length === 0) {
+                        //     target.appendTo('.discard');
+                        // } else {
+                        //     target.appendTo('.discard:last-child');
+                        // }
+                        target.css('position', 'relative');
+                        target.css('top', '-1vw');
+                        target.css('left', '-1vw');
+                        $('.discardheader').text(`Discard (${$('.discard').children('.card').length})`);
+                        charge(target.data().cost);
+                        spendClick();
+                        gameLog(`You played ${target.data().name}!`);
+                    } else {
+                        $('.credits').effect('shake', 'slow');
+                    }
+                });
+                console.log($(`.${cardsInDeck[0].cardNum}`).data().use);
+                $(cardInfo).append(`<h2> Cost to Play: ${cardsInDeck[0].cost}</h2>`);
+                $(cardInfo).append(`<h2> Effect: ${cardsInDeck[0].effect}</h2>`);
+            }
             $(cardInfo).appendTo('.tooltip_templates');
             $(`.${cardsInDeck[0].cardNum}`).attr('data-tooltip-content', `#tool${cardsInDeck[0].cardNum}`);
 
             fixTooltips();
+
             cardsInDeck.shift();
-            $('.card').draggable({
+            $('.deckheader').text(`Deck (${cardsInDeck.length})`);
+            $('.man').draggable({
                 revert: 'invalid',
                 start: function(event, ui) {
                     $(this)
@@ -210,11 +259,12 @@ function placeSec(ice = 1) {
         const banksLeft = $('.bank').length;
         const rando = Math.floor(Math.random() * (banksLeft - 0)) + 0;
         const targetServer = $('.server').eq(rando);
-        console.log($(targetServer).children().children('.security').length);
         // check for first open slot
         $(targetServer).children('.secslot').each(function checkForOpen() {
-            if (!$.trim($(this).html()).length) {
+            console.log($(this).attr('id'));
+            if ($(this).children('.security').length < 1) {
                 gameState.firstSecOpen = `#${this.id}`;
+                console.log(`the first open space is${gameState.firstSecOpen}`);
                 return false;
             }
         });
@@ -241,6 +291,44 @@ function placeSec(ice = 1) {
     }
 }
 
+/** keeps the initial setup from including 3 undefended banks, a free win */
+function noFreeWin() {
+    // count undefended servers
+    let undefendedCount = 0;
+    let emptyServer = null;
+    $('.server').each(function() {
+        if ($(this).children().children('.security').length < 1) {
+            undefendedCount++;
+        }
+        if (undefendedCount > 1) {
+            $('.server').each(function() {
+                if ($(this).children().children('.security').length < 1) {
+                    emptyServer = $(this);
+                    return false;
+                }
+            });
+            if (emptyServer.children().children('.security').length < 1) {
+                console.log(`${emptyServer.attr('id')} is the empty server`);
+                // place into slot zero
+                emptyServer.children(':nth-child(2)').append(`<div class='security ${securityPool[0].cardNum}'></div>`);
+                $(`.${securityPool[0].cardNum}`).data(securityPool[0]);
+                $(`.${securityPool[0].cardNum}`).css('background-image', 'url(img/cardback.jpg)').hide().fadeIn(1000);
+                $(`.${securityPool[0].cardNum}`).css('background-size', 'cover');
+                $(`.${securityPool[0].cardNum}`).css('background-position', 'center');
+                const secInfo = $('<div>', { id: `tool${securityPool[0].cardNum}` });
+                $(secInfo).append(`<img src='${securityPool[0].img}'>`);
+                $(secInfo).append(`<h1>${securityPool[0].name}</h1>`);
+                $(secInfo).append(`<h2> Strength: ${securityPool[0].strength}</h2>`);
+                $(secInfo).appendTo('.tooltip_templates');
+                $(`.${securityPool[0].cardNum}`).attr('data-tooltip-content', `#tool${securityPool[0].cardNum}`);
+                fixTooltips();
+                securityPool.shift();
+                return false;
+            }
+        }
+    });
+}
+
 /** the player starts a run, attempting to break through security and rob a bank
 * @param {string} e is just the click event so we can locate the server we're running on
 * @returns {boolean} false is just cheating to get out of the loop
@@ -263,6 +351,13 @@ function approach(e) {
         }
     }
     runDepth--; // we get one step closer to the bank
+    if (gameState.insideMan === true && runDepth > 1) {
+        runDepth--;
+    } else if (gameState.insideMan === true && runDepth <= 1) {
+        robBank();
+        return false;
+    }
+
     gameState.running = true; // and turn off all the actions that aren't allowed during a run
     currentOpponent = $(gameState.currentServer).children('.secslot').children('.security').eq(runDepth); // determine which security card we're interacting with
     currentOpponent.css('background-image', `url(${currentOpponent.data().img})`); // "flip over" the hidden security card the first time it's encountered
@@ -280,11 +375,11 @@ function approach(e) {
 /** checks our player cards to see if any of them can beat the current security card*/
 function checkBreakers() {
     $('.card').removeClass('focused');
+    $('.crew > .man').off();
     // do we have a card with the same color and a high enough strength score?
     // if so, we add a click handler that lets it break that security card
-    $('.crew > .card').each(function() {
+    $('.crew > .man').each(function() {
         if ($(this).data().strength >= currentOpponent.data().strength && $(this).data().color === currentOpponent.data().color) {
-            console.log($(this).data().color);
             $(this).addClass('focused');
             $(this).click(iceBreak);
         }
@@ -323,11 +418,12 @@ function iceBreak() {
 /** ends the run, reactivates non-run actions like drawing */
 function endTheRun() {
     gameLog('The run came to an end.');
-    $('.card').removeClass('focused');
+    $('.man').removeClass('focused');
     $('.marker').css('display', 'none');
     $('.marker').appendTo($('body'));
     $('.run-arrow').css('display', 'flex');
     gameState.running = false;
+    gameState.insideMan = false;
     spendClick(0);
 }
 
@@ -355,21 +451,23 @@ function corpTurn() {
     const secNow = $('.security').length;
     let truckCount = 0;
     // randomly determine where computer will put trucks and security
-    for (let i = 0; i < 3; i++) {
-        const rando = Math.floor(Math.random() * (6 - 1)) + 0;
+    for (let i = 0; i < 2; i++) {
+        const rando = Math.floor(Math.random() * (7 - 1)) + 0;
 
-        if (rando === 0 && gameState.gameOver === false) {
+        if (rando < 2 && !gameState.gameOver) {
             placeSec();
-        } else {
+        } else if (rando >= 4 && !gameState.gameOver) {
             truckCount++;
         }
     }
-    if (gameState.gameOver === false) {
+    if (!gameState.gameOver) {
         if ($('.security').length > secNow) {
             gameLog('New security measures are in place.');
         }
-        addTruck(truckCount);
-        gameLog('Trucks have arrived to secure the loot.');
+        if (truckCount > 0) {
+            addTruck(truckCount);
+            gameLog('Trucks have arrived to secure the loot.');
+        }
         playerTurn();
     }
 }
@@ -417,17 +515,30 @@ function checkForWin() {
     if (gameState.corpScore > 2 || gameState.playerScore > 2) {
         if (gameState.corpScore > 2) {
             gameLog('Your heist failed. The powers that be have won this round.');
-            return false;
+            $('.banner').text('You lose!');
         } else if (gameState.playerScore > 2) {
             gameLog('You pulled it off! You and your crew are set for life.');
+            $('.banner').text('You win!');
         }
         gameState.gameOver = true;
+
+        $('.banner').slideDown(2000);
         $('.marker').css('display', 'none');
         gameState.running = true;
     }
 }
 
+// function roulette() {
+//     console.log('spin that wheel!');
+// }
+
 $(document).ready(() => {
+    // turning on game buttons
+    $('.draw').click(clickToDraw);
+    $('.credits').click(clickForCredit);
+    $('.run-arrow').click(approach);
+    // clicking 'you win' banner restarts game
+    $('.banner').click(restartGame);
     // fixing tooltips - listening for new .tooltip objects and activating them
     $('body').on('mouseenter', '.tooltip:not(.tooltipstered)', function() {
         $(this)
@@ -467,7 +578,7 @@ $(document).ready(() => {
     });
 
     // making cards draggable
-    $('.card').draggable({
+    $('.man').draggable({
         start: function(event, ui) {
             $(this)
                 .addClass('glow');
