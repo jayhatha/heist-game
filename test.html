@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>heist</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Rubik" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/tooltipster.bundle.min.css" />
+  <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-borderless.min.css" />
+  <link rel="stylesheet" href="css/introjs.min.css">
+  <link rel="stylesheet" href="css/introjs-modern.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="js/jquery.ui.touch-punch.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/cards.js"></script>
+  <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.6.2.css">
+
+  <script>
+        $(document).ready(function() {
+          $('.tooltip').tooltipster({
+          theme: 'tooltipster-borderless',
+          animation: 'fade',
+          delay: 200
+
+});
+        });
+  </script>
+</head>
+
+<body>
+<div class="tooltip_templates">
+</div>
+  <div class="popup">
+    <h2>The heist is on ... </h2>
+    <p>You're a professional thief looking to get out of the game, and the perfect opportunity has just presented itself. Four high-profile locations around the city are changing security contractors on the same night. During the switchover, they'll all
+      be vulnerable. If you can take down even three of them before their new security is in place, you'll be set for life. Now it's time to assemble your crew, scout the locations, and pull one last job.</p>
+  </div>
+  <div class="banner">
+  </div>
+
+  <div class="marker">
+  </div>
+  <div class="board">
+    <div class="scorebox lg-rect">
+      <div id="playerscore"   class= "sm-sq" data-step="9" data-intro="If you break all the security, or the bank is undefended, you score. Score 3 times to win.">
+      </div>
+      <div id="corpscore" class= "sm-sq"  data-step="10" data-intro="The banks aren't going to make it easy, though. They're bringing in trucks to secure the loot. If three trucks make it to a bank, it slips out of your reach. Good luck!">
+      </div>
+    </div>
+    <div class="corpside">
+      <div class="server column" id="server1" data-intro="They're not completely vulnerable, though. You'll have to proceed through their layers of security." data-step="2">
+        <div class="bank square" data-intro="Your objective is to break into these vulnerable banks." data-step="1">
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+        </div>
+
+        <div class="secslot rect" id="sec1">
+        </div>
+        <div class="secslot rect" id="sec2">
+        </div>
+        <div class="secslot rect" id="sec3">
+        </div>
+        <div class="run-arrow arrow rect" data-step="8" data-intro="When you're ready to attack a bank, click this arrow. If you run into security, a crew member with a matching color can help you break it. Otherwise, you're out of luck." >
+        </div>
+      </div>
+      <div class="server column" id="server2">
+        <div class="bank square">
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+        </div>
+
+        <div class="secslot rect" id="sec4">
+        </div>
+        <div class="secslot rect" id="sec5">
+        </div>
+        <div class="secslot rect" id="sec6">
+        </div>
+        <div class="run-arrow arrow rect">
+        </div>
+      </div>
+      <div class="server column" id="server3">
+        <div class="bank square">
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+        </div>
+
+        <div class="secslot rect" id="sec7">
+        </div>
+        <div class="secslot rect" id="sec8">
+        </div>
+        <div class="secslot rect" id="sec9">
+        </div>
+        <div class="run-arrow arrow rect">
+        </div>
+      </div>
+      <div class="server column" id="server4">
+        <div class="bank square">
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+        </div>
+
+        <div class="secslot rect" id="sec10">
+        </div>
+        <div class="secslot rect" id="sec11">
+        </div>
+        <div class="secslot rect" id="sec12">
+        </div>
+        <div class="run-arrow arrow rect">
+        </div>
+      </div>
+      <div class="server column" id="server5">
+        <div class="bank square">
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+          <div class="truck">
+          </div>
+        </div>
+
+        <div class="secslot rect" id="sec13">
+        </div>
+        <div class="secslot rect" id="sec14">
+        </div>
+        <div class="secslot rect" id="sec15">
+        </div>
+        <div class="run-arrow arrow rect">
+        </div>
+      </div>
+    </div>
+    <div class="playerbox">
+      <div class="crewbox lg-rect" data-step="6" data-intro="Some of your cards represent members of your crew. Drag them here to hire them.">
+        <div class="crew sm-sq" id="crew1">
+        </div>
+        <div class="crew sm-sq" id="crew2">
+        </div>
+        <div class="crew sm-sq" id="crew3">
+        </div>
+        <div class="crew sm-sq" id="crew4">
+        </div>
+      </div>
+      <div class="counters lg-rect">
+        <div class="credits sm-sq"  data-step="7" data-intro="... if you have enough cash, that is. You start with $5, but you can click here to get more money.">
+        </div>
+        <div class="clicks sm-sq"  data-step="5" data-intro="And it'll cost you an action. You get 4 per turn, so use them wisely.">
+        </div>
+      </div>
+    </div>
+
+    <div class="playerarea">
+      <div class="hand lg-rect" data-intro="When you do, it'll go to your hand, over here." data-step="4">
+        <div class="cardslot sm-sq" id="hand1">
+        </div>
+        <div class="cardslot hand2 sm-sq" id="hand2">
+        </div>
+        <div class="cardslot hand3 sm-sq" id="hand3">
+        </div>
+        <div class="cardslot hand4 sm-sq" id="hand4">
+        </div>
+        <div class="cardslot hand5 sm-sq" id="hand5">
+        </div>
+      </div>
+      <div class="deck lg-rect">
+        <div class="draw sm-sq" data-intro="Fortunately, you've got some tricks up your sleeve. This is your deck. Click it to draw a card." data-step="3">
+          <div class="deckheader"></div>
+        </div>
+        <div class="discard sm-sq">
+          <div class="discardheader"></div>
+        </div>
+      </div>
+
+
+    </div>
+    <div id="gamelog">
+    </div>
+
+  </div>
+
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="https://code.jquery.com/qunit/qunit-2.6.2.js"></script>
+<script src="js/tests.js"></script>
+<script type="text/javascript" src="js/intro.min.js"></script>
+</body>
+
+</html>
