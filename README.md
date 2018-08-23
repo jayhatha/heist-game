@@ -1,4 +1,6 @@
-**HEIST**
+*Update 8/23:* Cleaned up the main game loop (a little bit). Began adding unit tests with QUnit for easier debugging if I want to make more changes later.   
+
+# **HEIST**
 
 *The heist is on ...*
 
