@@ -1,0 +1,13 @@
+{
+  "name": "heist-game",
+  "version": "0.1.0",
+  "authors": [
+    "Jay Hathaway"
+  ],
+  "main": "test.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
+}
