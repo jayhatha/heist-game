@@ -28,8 +28,6 @@ If it has security, though, you'll need your crew to break through. When you enc
 
 Pro Tip: Hovering over a card reveals its stats.
 
-
-
 When you spend all your actions, it's the bank's turn. The computer can add additional security or bring in trucks to relocate the loot before you can steal it. If three trucks reach a bank, you've missed your chance to rob it and the computer scores.
 
 The first side to claim three banks is the winner.
@@ -37,8 +35,11 @@ The first side to claim three banks is the winner.
 
 **Installation Instructions**
 
-Play [here](https://jayhatha.github.io/heist-game/).
+Just clone this repo and open index.html, or play the [hosted version](https://jayhatha.github.io/heist-game/).
 
+**How to Play**
+
+You're a veteran bank robber assembling a crew to rob three
 
 **My Process**
 
@@ -111,6 +112,14 @@ Making this game was a fun experience, and I learned a lot from it. There are pa
 
 ** Photo Credits **
 
-[Martijn Barendse](https://flic.kr/p/iDrh7W)/Flickr (CC-BY-2.0)
+[Theen Moy](https://www.flickr.com/photos/theenmoy/5554943156/)/Flickr (CC BY-NC-SA 2.0)
 
-[Scot Alexander](https://flic.kr/p/5q8qw4)/Flickr (CC BY-NC-SA 2.0)
+[Scot Alexander](https://flic.kr/p/5q8qw4)/Flickr (CC BY-NC-SA 2.0)  
+
+[cmh2315fl](https://flic.kr/p/p4ZLkK)/Flickr (CC BY-NC 2.0)
+
+[domiriel](https://www.flickr.com/photos/domiriel/6122146596/)/Flickr  (CC BY-NC 2.0)
+
+[Emiliano Grusovin](https://www.flickr.com/photos/emiliano-iko/12769096263/)/Flickr (CC BY-NC-SA 2.0)
+
+[James Higgott](https://www.flickr.com/photos/higgott/5450137989/)/Flickr (CC BY-NC-SA 2.0)
