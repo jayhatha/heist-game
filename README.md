@@ -1,4 +1,4 @@
-*Update 8/23:* Cleaned up the main game loop (a little bit). Began adding unit tests with QUnit for easier debugging if I want to make more changes later. (I'll probably write a blog post about making QUnit work with TravisCI, because it was certainly ... a process.)  
+*Update 8/23:* Cleaned up the main game loop (a little bit). Began adding unit tests with QUnit for easier debugging if I want to make more changes later. I wrote a blog post about [making QUnit work with TravisCI and ES6](https://medium.com/@strutting/how-to-set-up-automated-testing-with-qunit-travisci-and-es6-f96666438e5), because it was certainly ... a process.
 
 # **HEIST**
 
@@ -39,7 +39,7 @@ The first side to claim three banks is the winner.
 
 **Installation Instructions**
 
-Just clone this repo and open index.html, or play the [hosted version](https://jayhatha.github.io/heist-game/).
+Clone this repo and open index.html, or play the [hosted version](https://jayhatha.github.io/heist-game/).
 
 **How to Play**
 
