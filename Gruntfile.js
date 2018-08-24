@@ -1,7 +1,14 @@
 module.exports = function (grunt) {
-  grunt.file.defaultEncoding = "utf-8";
+  // Project configuration.
+  grunt.initConfig({
+    qunit: {
+      files: ["test/test.html"]
+    }
+  });
 
-  require("time-grunt")(grunt);
+  // Load plugin
+  grunt.loadNpmTasks("grunt-contrib-qunit");
 
-  require("load-grunt-config")(grunt);
+  // Task to run tests
+  grunt.registerTask("test", "qunit");
 };

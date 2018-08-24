@@ -1,5 +1,4 @@
-language: node_js
-node_js:
-  - "10.1.0"
 before_script:
-  - npm install -g grunt-cli
+  - sudo npm install -g grunt
+
+script: grunt test --verbose --force

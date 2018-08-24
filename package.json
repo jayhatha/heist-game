@@ -3,24 +3,17 @@
   "version": "0.1.0",
   "description": "running tests for front-end game",
   "main": "testtest.html",
-  "dependencies": {
-    "grunt": "^0.4"
-  },
   "devDependencies": {
-    "grunt-contrib-connect": "^1.0",
-    "grunt-contrib-qunit": "^2.0.0",
-    "jquery": "^3.3.1",
-    "load-grunt-config": "^0.19",
-    "load-grunt-tasks": "^4.0",
-    "qunitjs": "^2.4.0",
-    "time-grunt": "^1.4"
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-qunit": "~0.2.0"
+  },
+  "engines": {
+    "node": ">=0.8"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/jayhatha/heist-game.git"
   },
   "author": "Jay Hathaway",
-  "scripts": {
-    "test": "grunt test --verbose"
-  }
 }
