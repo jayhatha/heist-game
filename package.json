@@ -5,12 +5,9 @@
   "description": "running tests for front-end game",
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-contrib-qunit": "^1.3.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.0"
+    "grunt-contrib-qunit": "^1.3.0"
   },
   "scripts": {
-    "build": "babel test -d build",
     "test": "grunt test"
   },
   "repository": {
