@@ -1,6 +1,8 @@
-*Update 8/23:* Cleaned up the main game loop (a little bit). Began adding unit tests with QUnit for easier debugging if I want to make more changes later.   
+*Update 8/23:* Cleaned up the main game loop (a little bit). Began adding unit tests with QUnit for easier debugging if I want to make more changes later. (I'll probably write a blog post about making QUnit work with TravisCI, because it was certainly ... a process.)  
 
 # **HEIST**
+
+[![Build Status](https://travis-ci.org/jayhatha/heist-game.svg?branch=master)](https://travis-ci.org/jayhatha/heist-game)
 
 *The heist is on ...*
 
