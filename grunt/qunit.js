@@ -4,7 +4,7 @@ module.exports = {
   all: {
     options: {
       urls: [
-        "http://127.0.0.1:8080/test.html"
+        "http://127.0.0.1:8080/test/test.html"
       ],
       timeout: 10000,
       screenshot: false

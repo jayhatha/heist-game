@@ -4,7 +4,7 @@
   "authors": [
     "Jay Hathaway"
   ],
-  "main": "test.html",
+  "main": "test/test.html",
   "ignore": [
     "**/.*",
     "node_modules",
