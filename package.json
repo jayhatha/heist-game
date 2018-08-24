@@ -1,6 +1,7 @@
 {
   "name": "heist-game",
   "version": "0.1.0",
+  "author": "Jay Hathaway",
   "description": "running tests for front-end game",
   "main": "testtest.html",
   "devDependencies": {
@@ -14,6 +15,5 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/jayhatha/heist-game.git"
-  },
-  "author": "Jay Hathaway",
+  }
 }
