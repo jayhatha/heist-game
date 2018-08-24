@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "author": "Jay Hathaway",
   "description": "running tests for front-end game",
-  "main": "test/test.html",
   "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib-jshint": "~0.1.1",
-    "grunt-contrib-qunit": "~0.2.0"
+    "grunt": "^1.0.1",
+    "grunt-contrib-qunit": "^1.3.0"
   },
-  "engines": {
-    "node": ">=0.8"
+  "scripts": {
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
