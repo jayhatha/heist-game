@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Jay Hathaway",
   "description": "running tests for front-end game",
-  "main": "testtest.html",
+  "main": "test/test.html",
   "devDependencies": {
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.1.1",
