@@ -17,8 +17,19 @@
   <script src="../js/jquery.ui.touch-punch.min.js"></script>
   <script src="../js/script.js"></script>
   <script src="../js/cards.js"></script>
-  <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+  <script type="text/javascript" src="../tooltipster/dist/js/tooltipster.bundle.min.js"></script>
 
+
+  <script>
+        $(document).ready(function() {
+          $('.tooltip').tooltipster({
+          theme: 'tooltipster-borderless',
+          animation: 'fade',
+          delay: 200
+
+        });
+        });
+  </script>
 </head>
 
 <body>
