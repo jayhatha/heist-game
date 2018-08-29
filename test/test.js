@@ -2,6 +2,13 @@ QUnit.test("hello test", (assert) => {
   assert.ok(1 == "1", "Passed!");
 });
 
+QUnit.module("making sure the buttons load");
+QUnit.test("the buttonset div exists", (assert) => {
+  const result = $(".ui-button").length > 1;
+  assert.ok(result, "should be true");
+});
+
+
 QUnit.module("initializing game");
 QUnit.test("player has 5 credits", (assert) => {
   assert.equal(gameState.playerCash, 5, "should be 5");
